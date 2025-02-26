@@ -4,13 +4,16 @@ import {
   Route
 } from "react-router-dom";
 
-import LandingPage from "./FUNCTIONS/LandingPage";
-import HomePage    from "./FUNCTIONS/HomePage";
-import Signup      from "./FUNCTIONS/Signup";
-import Signin      from "./FUNCTIONS/Signin";
-import Booking     from "./FUNCTIONS/Booking";
-import Profile     from "./FUNCTIONS/Profile"
-import ListYourParking from "./FUNCTIONS/ListYourParking"
+import LandingPage from "./USER/LandingPage";
+import HomePage    from "./USER/HomePage";
+import Signup      from "./USER/Signup";
+import Signin      from "./USER/Signin";
+import Booking     from "./PARKING/Booking";
+import Profile     from "./USER/Profile"
+import ListYourParking from "./PARKING/ListYourParking"
+import Parking         from "./PARKING/Parking";
+import OfflineBikeTicketBooking from "./PARKING/OfflineTicketBooking";
+import CheckOutTicket           from "./PARKING/CheckOutTicket";
 
 function App() {
 
@@ -21,12 +24,15 @@ function App() {
                 <Route path="/landingpage" element={<LandingPage/>} /> 
                 <Route path="/homepage"    element={<HomePage/>} />    
                 <Route path="/signup"      element={<Signup/>} />  
-                <Route path="/signin"      element={<Signin/>} />      
-                <Route path="/booking"     element={<Booking/>}/>     
+                <Route path="/signin"      element={<Signin/>} />                      
                 <Route path="/profile"     element={<Profile/>}/>  
 
-                <Route path="/listYourParking"     element={<ListYourParking/>}/> 
-
+                <Route path="/listYourParking"                            element={<ListYourParking/>}/> 
+                <Route path="/parking/:id"                                element={<Parking/>} />
+                <Route path="/bookOfflineTicket/:id/:vehicle"             element={<OfflineBikeTicketBooking/>}/> 
+                <Route path="/CheckOutTicket/:parkingId/:bookingMode"     element={<CheckOutTicket/>}/> 
+                <Route path="/getBookings/:parkingId/:bookingMode"        element={<Booking/>}/>  
+                
             </Routes>
        </Router>
     

@@ -1,7 +1,7 @@
 import NavIcon from "../COMPONENTS/NavIcon"
 import HomeIcon from "../ASSETS/HomeIcon"
-import TicketIcon from "../ASSETS/TicketIcon"
 import SupportIcon from "../ASSETS/SupportIcon"
+import BookingsIcon from "../ASSETS/BookingsIcon"
 
 export default ()=>{
 
@@ -13,7 +13,7 @@ export default ()=>{
                                  <button><NavIcon textColor="white" label={"Home"} icon={<HomeIcon/>}/></button>
                               </div>
                               <div className="flex mx-2">
-                              <button><NavIcon textColor="white" label={"bookings"} icon={<TicketIcon/>}/></button>
+                              <button><NavIcon textColor="white" label={"bookings"} icon={<BookingsIcon/>}/></button>
                               </div>
                               <div className="flex mx-2">
                               <button><NavIcon textColor="white" label={"Support"} icon={<SupportIcon/>}/></button>

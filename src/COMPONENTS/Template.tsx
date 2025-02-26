@@ -2,7 +2,7 @@ import NavIcon from "./NavIcon"
 
 interface Props{
     heading : string,
-    subHeading : string | undefined,
+    subHeading : string | undefined | boolean | number,
     icon : React.ReactNode
 }
 

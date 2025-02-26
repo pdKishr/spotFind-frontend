@@ -2,7 +2,7 @@ import { SetStateAction, useCallback, useEffect, useMemo, useState } from "react
 import {  useUserStore } from "../ZUSTAND_STORE/store"
 import { useNavigate } from "react-router-dom";
 import Title from "../COMPONENTS/Title";
-import Button from "../COMPONENTS/Button";
+import Button from "../COMPONENTS/WhiteButton";
 import NavIcon from "../COMPONENTS/NavIcon";
 import ProfileIcon from "../ASSETS/ProfileIcon";
 import Template from "../COMPONENTS/Template";
@@ -11,6 +11,9 @@ import PhoneIcon from "../ASSETS/PhoneIcon";
 import Backicon from "../ASSETS/Backicon";
 import Input from "../COMPONENTS/Input";
 import UserUpdateProfile from "../API_SERVICE/updateProfile";
+import GreenButton from "../COMPONENTS/GreenButton";
+import WhiteButton from "../COMPONENTS/WhiteButton";
+
 
 const UserProfile = () => {
 
@@ -32,17 +35,18 @@ const UserProfile = () => {
     if (!token) navigate("/landingpage");
   }, [navigate]);
 
-    useEffect(() => {
+   useEffect(() => {
         if (!user) {
             fetchUser();
         }
         if(user){
+        
             setName((prev) => (prev !== user.name ? user.name : prev));
             setEmail((prev) => (prev !== user.email ? user.email : prev));
             setMobileNumber((prev) => (prev !== user.mobileNumber ? user.mobileNumber : prev));
         }
-        console.log(user)
-    }, [user]);
+      
+    }, [user]); 
 
     const onClickHandlerOfEditProfile = useCallback( () => {
         if (user?.name !== name || user?.email !== email || user?.mobileNumber !== mobileNumber) {
@@ -73,18 +77,17 @@ const UserProfile = () => {
                 <div className="flex justify-between items-center">
                   <Title />
                   <div className="flex px-2 items-center">
-                  <div className="text-xl text-white">Profile</div>
+                  <div className="text-xl text-white font-semibold mx-1">Profile</div>
                     <button onClick={() => navigate("/homepage")}>
                       <NavIcon label="" icon={<Backicon />} textColor="white" />
                     </button>
-                    
+                 
                   </div>
                 </div>
               </div>
             </div>
           </div>
-      
-        
+              
           <div className="bg-slate-100 h-screen flex justify-center items-center">
             <div className="w-fit bg-white p-6 rounded shadow-lg">
               <div className="flex justify-center items-center p-2">
@@ -98,16 +101,29 @@ const UserProfile = () => {
       
         
           {overLay && (
-            <div className="fixed inset-0 bg-slate-100 flex items-center justify-center" onClick={closeOverlay}>
+            <>
+            <div className="max-w-full h-18 bg-green-600 ">
+                            <div className="flex justify-center ">
+                                <div  className="w-full text-center lg:w-250">
+                                  <div className="flex justify-between items-center">
+                                      <Title/>  
+                                      <WhiteButton buttonName={"Back"} onClickHandler={()=>navigate("/landingpage")} />
+                                  </div>                       
+                                </div>
+                             </div>
+                        </div> 
+
+              <div className="fixed inset-0 bg-slate-100 flex items-center justify-center" onClick={closeOverlay}>
               <div className="bg-white p-6 rounded shadow-lg w-fit" onClick={(e) => e.stopPropagation()}>
-                <Input label="Enter new Name" name="" type="text" placeholder={user?.name || "Loading.."} onChangeHandler={handleNameChange} />
-                <Input label="Enter new Email" name="" type="text" placeholder={email} onChangeHandler={handleEmailChange} />
-                <Input label="Enter new Mobile Number" name="" type="text" placeholder={mobileNumber} onChangeHandler={handleMobileChange} />
-                <button onClick={onClickHandlerOfEditProfile} className="mt-4 px-4 py-2 bg-green-600 text-white rounded mx-16">
-                  Save
-                </button>
+                <Input label="Enter new Name" name="" type="text" placeholder={user?.name || "Loading.."} onChangeHandler={handleNameChange} value={undefined} />
+                <Input label="Enter new Email" name="" type="text" placeholder={email} onChangeHandler={handleEmailChange} value={undefined} />
+                <Input label="Enter new Mobile Number" name="" type="text" placeholder={mobileNumber} onChangeHandler={handleMobileChange} value={undefined} />
+                <GreenButton buttonName="save" onClickHandler={onClickHandlerOfEditProfile}></GreenButton>
               </div>
             </div>
+            </>
+            
+           
           )}
         </div>
       );

@@ -1,20 +1,16 @@
 import ProfileIcon   from "../ASSETS/ProfileIcon"
-import Button        from "../COMPONENTS/Button"
+import Button        from "../COMPONENTS/WhiteButton"
 import NavBar        from "../SUPER_COMPONENTS/NavBar"
 import NavIcon       from "../COMPONENTS/NavIcon"
 import Title         from "../COMPONENTS/Title"
 import InputFields   from "../SUPER_COMPONENTS/InputFields"
 import {useNavigate} from "react-router-dom"
-import { useCallback, useEffect, useState } from "react"
-
+import { useEffect } from "react"
+import GreenButton   from "../COMPONENTS/GreenButton"
 
 export default ()=>{
 
     const navigate = useNavigate();  
-
-      const [overLay,setOverLay] = useState(false);
-      const openOverlay  = useCallback(() => setOverLay(true), []);
-      const closeOverlay = useCallback(() => setOverLay(false), []);
 
     useEffect(()=>{
         const token = localStorage.getItem("token");
@@ -40,17 +36,19 @@ export default ()=>{
              </div>
         </div>   
         <NavBar/>    
-
-        <div className="flex items-center justify-center">  
-            <div>
-                <InputFields/> 
-                <div className="bg-white h-15">                     
-                    <div className="flex justify-center">
-                            <Button buttonName={"Search"} onClickHandler={()=>{}}></Button>               
+        <InputFields/>
+        
+                <div className="bg-gray-100 h-18">                     
+                    <div className="flex justify-center">                               
+                        <GreenButton buttonName={"Search"} onClickHandler={()=>navigate("/signup")} />           
                     </div>                         
                 </div>
-               </div>
-        </div>               
+        
+                 <div className="flex justify-center h-screen ">
+                    <div className="bg-white w-full  text-center lg:w-250">
+                        advertise here..
+                    </div>    
+                </div>              
         
         
                

@@ -1,19 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Backicon from "../ASSETS/Backicon";
-import Button from "../COMPONENTS/Button";
+import Button from "../COMPONENTS/WhiteButton";
 import NavIcon from "../COMPONENTS/NavIcon";
 import Title from "../COMPONENTS/Title";
 import Input from "../COMPONENTS/Input";
 import AddParking from "../API_SERVICE/AddParking";
 import { useParkingStore} from "../ZUSTAND_STORE/store";
 import ParkingFrontCard from "../COMPONENTS/ParkingFrontCard";
-
+import GreenButton from "../COMPONENTS/GreenButton";
 
 export default function ListParking() {
   const navigate = useNavigate();
   const [overLay, setOverLay] = useState(false);
-
+ 
   const [parking, setParking] = useState({
     parkingName: "", 
     email: "", 
@@ -44,10 +44,13 @@ export default function ListParking() {
   };
 
   const {parkings , fetchParking} = useParkingStore();
+  const [fetched,setFetched] = useState(false);
 
-  useEffect(() => {
-    if (parkings.length === 0) fetchParking();
-    console.log(parkings)
+  useEffect(() => {   
+    if(!fetched){
+      fetchParking();  
+      setFetched(true)
+    }
   }, [parkings]);
 
   useEffect(()=>{
@@ -80,11 +83,15 @@ export default function ListParking() {
     </div>
         
     <div className="flex justify-center">
-        <div className="md:w-180 lg:w-250 w-80">
+        <div className="w-full lg:w-250 p-2">
         {parkings.map((p, index) => (
-          <ParkingFrontCard  key={index} k={index} parkingName={p.parkingName}   location={p.location}  city={p.city} parking_id={p.id} />  
+          <div className="" key={index} onClick={()=>{
+               navigate(`/parking/${p.id}`)
+          }}>
+          <ParkingFrontCard k={index} parkingName={p.parkingName} location={p.location} city={p.city} /> 
+          </div>  
            ))}  
-        </div>
+      </div>
           
     </div>
 
@@ -94,13 +101,13 @@ export default function ListParking() {
         <div className="bg-white p-6 rounded shadow-lg w-fit max-h-[90vh] overflow-y-auto">
           <div className="sm:w-100 p-4">
             {/* Parking Info Inputs */}
-            <Input label="Parking Name" name="parkingName" type="text" placeholder="Enter Parking Name" onChangeHandler={handleChange} />
-            <Input label="Parking Email" name="email" type="text" placeholder="Enter Email" onChangeHandler={handleChange} />
-            <Input label="Parking Mobile Number" name="mobileNumber" type="text" placeholder="Enter Mobile Number" onChangeHandler={handleChange} />
-            <Input label="Location" name="location" type="text" placeholder="Enter Location" onChangeHandler={handleChange} />
-            <Input label="Address" name="address" type="text" placeholder="Enter Address" onChangeHandler={handleChange} />
-            <Input label="City" name="city" type="text" placeholder="Enter City" onChangeHandler={handleChange} />
-            <Input label="State" name="state" type="text" placeholder="Enter State" onChangeHandler={handleChange} />
+            <Input label="Parking Name" name="parkingName" type="text" placeholder="Enter Parking Name" onChangeHandler={handleChange} value={undefined} />
+            <Input label="Parking Email" name="email" type="text" placeholder="Enter Email" onChangeHandler={handleChange} value={undefined} />
+            <Input label="Parking Mobile Number" name="mobileNumber" type="text" placeholder="Enter Mobile Number" onChangeHandler={handleChange} value={undefined} />
+            <Input label="Location" name="location" type="text" placeholder="Enter Location" onChangeHandler={handleChange} value={undefined} />
+            <Input label="Address" name="address" type="text" placeholder="Enter Address" onChangeHandler={handleChange} value={undefined} />
+            <Input label="City" name="city" type="text" placeholder="Enter City" onChangeHandler={handleChange} value={undefined} />
+            <Input label="State" name="state" type="text" placeholder="Enter State" onChangeHandler={handleChange} value={undefined} />
 
             {/* Bike Parking */}
             <div className="p-2">
@@ -112,8 +119,8 @@ export default function ListParking() {
 
             {parking.isBikeParkingAvailable && (
               <div className="p-2 border-l-4 border-green-500">
-              <Input label="No. of Bike Spots" name="noOfBikeSpots" type="number" placeholder="Enter No. of Spots" onChangeHandler={handleChange} />
-                <Input label="Bike Parking Charge" name="bikeCharge" type="number" placeholder="Enter Charge" onChangeHandler={handleChange} />
+                <Input label="No. of Bike Spots" name="noOfBikeSpots" type="number" placeholder="Enter No. of Spots" onChangeHandler={handleChange} value={undefined} />
+                <Input label="Bike Parking Charge" name="bikeCharge" type="number" placeholder="Enter Charge" onChangeHandler={handleChange} value={undefined} />
 
               </div>
             )}
@@ -128,8 +135,8 @@ export default function ListParking() {
 
             {parking.isCarParkingAvailable && (
               <div className="p-2 border-l-4 border-green-500">
-                 <Input label="No. of Car Spots" name="noOfCarSpots" type="number" placeholder="Enter No. of Spots" onChangeHandler={handleChange} />
-                 <Input label="Car Parking Charge" name="carCharge" type="number" placeholder="Enter Charge" onChangeHandler={handleChange} />
+                 <Input label="No. of Car Spots" name="noOfCarSpots" type="number" placeholder="Enter No. of Spots" onChangeHandler={handleChange} value={undefined} />
+                 <Input label="Car Parking Charge" name="carCharge" type="number" placeholder="Enter Charge" onChangeHandler={handleChange} value={undefined} />
               </div>
             )}
 
@@ -143,18 +150,15 @@ export default function ListParking() {
 
             {!parking.isAvailableFor24Hours && (
               <div className="p-2 border-l-4 border-blue-500">
-               <Input label="Opening Time" name="openTime" type="time" placeholder="HH:MM" onChangeHandler={handleChange} />
-               <Input label="Closing Time" name="closeTime" type="time" placeholder="HH:MM" onChangeHandler={handleChange} />
-
+               <Input label="Opening Time" name="openTime" type="time" placeholder="HH:MM" onChangeHandler={handleChange} value={undefined} />
+               <Input label="Closing Time" name="closeTime" type="time" placeholder="HH:MM" onChangeHandler={handleChange} value={undefined} />
               </div>
             )}
 
             {/* Back & Save Buttons */}
             <div className="flex justify-between mt-4">
-              <button onClick={() => setOverLay(false)} className="px-4 py-2 bg-green-600 text-white rounded">Back</button>
-              <button onClick={ async () =>{
-                await AddParking(parking);               
-              }} className="px-4 py-2 bg-green-600 text-white rounded">Save</button>
+              <GreenButton buttonName={"Back"} onClickHandler={()=> setOverLay(false)}/>
+              <GreenButton buttonName={"Save"} onClickHandler={ async ()=>  await AddParking(parking)}/>
             </div>
           </div>
         </div>
@@ -162,3 +166,5 @@ export default function ListParking() {
     )}
   </>
 }
+
+

@@ -1,9 +1,11 @@
-import NavBar      from "../SUPER_COMPONENTS/NavBar"
-import Button      from "../COMPONENTS/Button"
+
+import Button      from "../COMPONENTS/WhiteButton"
 import Title       from "../COMPONENTS/Title"
-import InputFields from "../SUPER_COMPONENTS/InputFields"
+import InputFields from  "../SUPER_COMPONENTS/InputFields"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
+import GreenButton from "../COMPONENTS/GreenButton"
+
 
 export default ()=>{
     
@@ -18,7 +20,7 @@ export default ()=>{
     
     return (
         <>
-        <div className="max-w-full h-30 bg-green-600 sm:h-15">
+       <div className="max-w-full  bg-green-600 p-2">
             <div className="flex justify-center ">
                 <div className="w-full text-center lg:w-250">
                     <div className="hidden sm:flex justify-between items-center">
@@ -39,15 +41,12 @@ export default ()=>{
                     </div>
                 </div>
              </div>
-        </div> 
-        <NavBar/>
+        </div>     
         <InputFields/>
 
-        <div className="bg-gray-100 h-15">                     
-            <div className="flex justify-center">
-                                <Button buttonName={"Search"} onClickHandler={()=>{
-                                    navigate("/signup")
-                                }}></Button>               
+        <div className="bg-gray-100 h-18">                     
+            <div className="flex justify-center">                               
+                <GreenButton buttonName={"Search"} onClickHandler={()=>navigate("/signup")} />           
             </div>                         
         </div>
 

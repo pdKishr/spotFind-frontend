@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import UserGetData from "../API_SERVICE/getUserData";
 import getMyParkingList from "../API_SERVICE/getMyParkingList";
+import { persist } from "zustand/middleware";
 
 interface User {
    name : string,
@@ -9,8 +10,8 @@ interface User {
 }
 
 interface UserState{
-       user : User | null,
-       fetchUser :()=> Promise<void>;
+      user : User | null,
+      fetchUser :()=> Promise<void>;
 }
 
 export const useUserStore = create<UserState>((set)=>({
@@ -40,7 +41,9 @@ export interface Parking {
     carCharge: number,
     isAvailableFor24Hours: boolean, 
     openTime: string, 
-    closeTime: string
+    closeTime: string,
+    availableBikeSpots : number,
+    availableCarSpots : number,
 }
 
 interface ParkingState{
@@ -48,13 +51,21 @@ interface ParkingState{
   fetchParking :()=> Promise<void>;
 }
 
-export const useParkingStore = create<ParkingState>((set)=>({
-  parkings: [],
-  fetchParking : async ()=>{
-           const data = await getMyParkingList();
-           set({parkings:data})
-  }
-}))
+export const useParkingStore = create<ParkingState>()(
+  persist(
+    (set) => ({
+      parkings: [],
+      fetchParking: async () => {
+        const data = await getMyParkingList();
+        set({ parkings: data });
+      },
+    }),
+    {
+      name: "parking-storage", // Local storage key
+    }
+  )
+);
+
 
 
 
