@@ -2,7 +2,6 @@ import { create } from "zustand";
 import UserGetData from "../API_SERVICE/getUserData";
 import getMyParkingList from "../API_SERVICE/getMyParkingList";
 import { persist } from "zustand/middleware";
-import FindParkingAPI from "../API_SERVICE/FindParkingAPI";
 
 interface User {
    name : string,
@@ -62,7 +61,7 @@ export const useParkingStore = create<ParkingState>()(
       },
     }),
     {
-      name: "parking-storage", // Local storage key
+      name: "parking-storage", 
     }
   )
 );

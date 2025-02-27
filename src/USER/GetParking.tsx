@@ -62,7 +62,7 @@ export default ()=>{
         
            const fetch = async()=>{
                 
-                const data = await OnlineBooking({vehicle,vehicleNumber,parkingId});
+                await OnlineBooking({vehicle,vehicleNumber,parkingId});
                 alert("Booked successfully")
                 navigate("/homepage")
            }

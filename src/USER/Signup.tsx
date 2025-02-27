@@ -19,7 +19,7 @@ export default ()=>{
     const handleSignup = async ()=>{ 
         if(fname=="" || mobileNumber=="" || email=="" || password=="") alert("fields should not be empty")  
             else{
-                const data = await UserSignup({fname,email,mobileNumber,password});  
+                await UserSignup({fname,email,mobileNumber,password});  
                 navigate('/signin');            
                 alert("action") 
         }                      
