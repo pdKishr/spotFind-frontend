@@ -12,7 +12,6 @@ import { useEffect, useState } from "react";
 import WhiteButton from "../COMPONENTS/WhiteButton";
 import GreenButton from "../COMPONENTS/GreenButton";
 import getParkingById from "../API_SERVICE/getParkingById";
-//import ParkingTemplate from "../COMPONENTS/ParkingTemplate";
 import UpdateParkingAPI from "../API_SERVICE/UpdateParkingAPI";
 
 enum overlayConstant {
@@ -100,7 +99,7 @@ export default () => {
 
     return <>
         <div className="fixed top-0 left-0 w-full">
-            <div className="max-w-full h-18 sm:h-15 bg-green-600">
+            <div className="max-w-full h-18 sm:h-15 bg-green-500">
                 <div className="flex justify-center">
                     <div className="w-full text-center lg:w-250">
                         <div className="flex justify-between items-center">
@@ -115,7 +114,7 @@ export default () => {
                     </div>
                 </div>
             </div>
-            <div className="bg-green-600 h-15">
+            <div className="bg-green-500 h-15">
                 <div className="flex justify-evenly sm:justify-center">
                     <button onClick={() => { setOverLay(overlayConstant.info) }} className={overLay === overlayConstant.info ? "bg-white" : ""}>
                         <NavIcon textColor={overLay === overlayConstant.info ? "green" : "white"} icon={<ParkingInfoIcon />} label={"Info"} />

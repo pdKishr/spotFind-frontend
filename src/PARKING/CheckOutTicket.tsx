@@ -51,7 +51,7 @@ export default ()=>{
     <div className="flex justify-center items-center h-screen m-3">
         <div className="border-white rounded-xl shadow w-auto h-auto p-5">
 
-                <div className="flex items-center justify-between text-green-600 py-3">
+                <div className="flex items-center justify-between text-green-500 py-3">
                     <div className="font-semibold ml-3 ">
                        Checkout {bookingMode} Ticket
                     </div>

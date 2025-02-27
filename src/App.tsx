@@ -14,6 +14,7 @@ import ListYourParking from "./PARKING/ListYourParking"
 import Parking         from "./PARKING/Parking";
 import OfflineBikeTicketBooking from "./PARKING/OfflineTicketBooking";
 import CheckOutTicket           from "./PARKING/CheckOutTicket";
+import GetParking from "./USER/GetParking";
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/signup"      element={<Signup/>} />  
                 <Route path="/signin"      element={<Signin/>} />                      
                 <Route path="/profile"     element={<Profile/>}/>  
+                <Route path="/getparking/:id/:vehicleType" element={<GetParking/>} />
 
                 <Route path="/listYourParking"                            element={<ListYourParking/>}/> 
                 <Route path="/parking/:id"                                element={<Parking/>} />

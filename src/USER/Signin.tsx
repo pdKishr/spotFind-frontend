@@ -33,7 +33,7 @@ export default ()=>{
     }
         
     return<>
-    <div className="max-w-full h-18 bg-green-600 ">
+    <div className="max-w-full h-18 bg-green-500 ">
                 <div className="flex justify-center ">
                     <div  className="w-full text-center lg:w-250">
                       <div className="flex justify-between items-center">
