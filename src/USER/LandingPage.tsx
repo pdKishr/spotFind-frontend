@@ -20,7 +20,7 @@ export default ()=>{
     
     return (
         <>
-       <div className="max-w-full  bg-green-600 p-2">
+       <div className="max-w-full  bg-green-500 p-2">
             <div className="flex justify-center ">
                 <div className="w-full text-center lg:w-250">
                     <div className="hidden sm:flex justify-between items-center">
@@ -49,10 +49,9 @@ export default ()=>{
                 <GreenButton buttonName={"Search"} onClickHandler={()=>navigate("/signup")} />           
             </div>                         
         </div>
-
          <div className="flex justify-center h-screen ">
             <div className="bg-white w-full  text-center lg:w-250">
-                advertise here..
+                
             </div>    
         </div>       
         </>

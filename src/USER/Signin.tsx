@@ -6,7 +6,7 @@ import SubHeading    from "../COMPONENTS/SubHeading";
 import {useNavigate} from "react-router-dom";
 import UserSignin    from "../API_SERVICE/signin";
 import Title from "../COMPONENTS/Title";
-import WhiteButton from "../COMPONENTS/WhiteButton";
+import Backicon from "../ASSETS/Backicon";
 
 export default ()=>{
 
@@ -38,7 +38,7 @@ export default ()=>{
                     <div  className="w-full text-center lg:w-250">
                       <div className="flex justify-between items-center">
                           <Title/>  
-                          <WhiteButton buttonName={"Back"} onClickHandler={()=>navigate("/landingpage")} />
+                           <button onClick={()=> navigate("/")} className="text-white font-bold"> <Backicon /></button>
                       </div>                       
                     </div>
                  </div>
