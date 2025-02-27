@@ -13,13 +13,13 @@ export default ()=>{
                        <div className="text-sm">
                                  <div className="flex justify-center">
                                     <div className="w-1/2  justify-start">
-                                    <Input label="Search city"  name="" type="text" placeholder="Bengaluru" onChangeHandler={(e)=>{
+                                    <Input label="Search city"  name="" type="text" placeholder="Bengaluru" onChangeHandler={()=>{
                               
                                  }}/>
                                     </div>
                                 
                                     <div className="w-1/2">
-                                 <Input label="Enter Location" name="" type="text" placeholder="NearBy Location" onChangeHandler={(e)=>{
+                                 <Input label="Enter Location" name="" type="text" placeholder="NearBy Location" onChangeHandler={()=>{
                                 
                                  }}/>   
                                   </div>
