@@ -22,7 +22,7 @@ export default ({parking , vehicle }: props)=>{
             </div>           
             
             <div className="top-0 right-0">
-                  <div className=" text-white p-1 text-xs rounded" style={{ backgroundColor: "#1877F2" }}>{parking.isAvailableFor24Hours && <>24/7</>}</div>
+                  <div className=" text-white p-1 text-xs rounded bg-blue-800" >{parking.isAvailableFor24Hours && <>24/7</>}</div>
             </div>          
        </div>
 
