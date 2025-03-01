@@ -4,7 +4,6 @@ import {
   Route
 } from "react-router-dom";
 
-import LandingPage from "./USER/LandingPage";
 import HomePage    from "./USER/HomePage";
 import Signup      from "./USER/Signup";
 import Signin      from "./USER/Signin";

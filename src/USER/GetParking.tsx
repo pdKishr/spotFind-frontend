@@ -106,6 +106,8 @@ export default ()=>{
             <ParkingCard  parking={parking}/>
             <Input label={""} placeholder={"Vehicle Number Here"} onChangeHandler={(e)=>{setVehicleNumber(e.target.value)}} name={"vehicleNumber"} value={vehicleNumber}/>       
             {vehicleNumberEmpty && <div className="mx-10 py-0 text-sm text-red-500 flex justify-center">{"Vehicle Number is required!"}</div>}
+            {error && <div className="mx-10 py-0 text-sm text-red-500 flex justify-center">{error}</div>}
+         
             <div className="flex justify-center">  
             <GreenButton buttonName={"Book Now"} onClickHandler={handleClick}/>
             </div>
