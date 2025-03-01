@@ -105,19 +105,21 @@ export default ()=>{
 
                                 <div className="flex py-1">
                                     <Button buttonName={"ListYourSpot"} onClickHandler={()=>{ 
-                                        if(!token) {
-                                            navigate("/signin")
-                                            return;
-                                        }
+                                       if (!token || token === "null") {
+                                        navigate("/signin");
+                                        return;
+                                    }
+                                    
                                         navigate("/listYourParking")
                                             
                                     }}/> 
 
                                     <button onClick={()=>{
-                                        if(!token) {
-                                            navigate("/signup")
-                                            return;
-                                        }
+                                       if (!token || token === "null") {
+                                        navigate("/signin");
+                                        return;
+                                    }
+                                    
                                         navigate("/profile")
                                                                           
                                     }}><NavIcon label={``} textColor={"white"} icon={<ProfileIcon/>} /></button>
@@ -141,10 +143,11 @@ export default ()=>{
                         
                                      
                                       <div className={overlay === overLay.parkings ? "bg-green-700 sm:rounded rounded-xl  w-fit h-8 flex justify-center sm:w-fit sm:h-auto  sm:mx-2" : " sm:mx-2"} onClick={()=>{
-                                         if(!token) {
-                                            navigate("/signin")
+                                        if (!token || token === "null") {
+                                            navigate("/signin");
                                             return;
                                         }
+                                        
                                         setOverlay(overLay.parkings)
                                         }}>
                                           <button><NavIcon textColor={"white"} label={"Spots"} icon={<ParkingIcon/>}/></button>
@@ -152,10 +155,11 @@ export default ()=>{
                                       </div>
 
                                       <div className={overlay === overLay.bookings ? "bg-green-700 sm:rounded rounded-xl  w-fit h-8 flex justify-center sm:w-fit sm:h-auto   sm:mx-2" : "sm:mx-2"} onClick={()=>{
-                                         if(!token) {
-                                            navigate("/signin")
+                                         if (!token || token === "null") {
+                                            navigate("/signin");
                                             return;
                                         }
+                                        
                                         setOverlay(overLay.bookings)
                                         }}>
                                           <button><NavIcon  textColor={"white"} label={"Tickets"} icon={<BookingsIcon/>}/></button>
@@ -199,10 +203,11 @@ export default ()=>{
                                     {isVehicleEmpty && <div className="mx-10 py-0 text-sm text-red-500 flex justify-center">{"Vehicle Type is required!"}</div>}
                                     {error && <div className="mx-10 py-0 text-sm text-red-500 flex justify-center">{error}</div>}
                                     <GreenButton buttonName={"Search"} onClickHandler={()=>{
-                                         if(!token) {
-                                            navigate("/signin")
+                                         if (!token || token === "null") {
+                                            navigate("/signin");
                                             return;
                                         }
+                                        
                                         handleClick()
                                     }} />                           
                             </div>                            
