@@ -90,7 +90,7 @@ export default ()=>{
                         <Title />
                         <div className="flex px-2 items-center">
                             <div className="text font-semibold text-white">{parking ? parking.parkingName : "ParkingName"}</div>
-                            <button onClick={() => { navigate("/homepage") }}>
+                            <button onClick={() => { navigate("/") }}>
                                 <NavIcon label="" icon={<Backicon />} textColor="white" />
                             </button>
                         </div>

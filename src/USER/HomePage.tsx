@@ -263,9 +263,14 @@ export default ()=>{
                     }   
                        
 
-                      { bookings && bookings.map((booking)=>(
+                      { bookings &&<div>
+                        <div>Reacent Searches</div>
+                      
+                      {bookings.map((booking)=>(
                                  <BookingCard key={booking.id} booking={booking} />
                       ))}
+                      </div>
+                      }
                    
                </div>
               
