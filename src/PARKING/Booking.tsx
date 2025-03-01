@@ -57,16 +57,26 @@ export default () => {
                         </div>
                 <div className="p-4">
                <h2 className="text-lg font-semibold"></h2>
-                 <ul>
-                {bookings.map((booking) => (
-                    <li key={booking.id} className="border border-white shadow  p-2 my-2 rounded">
-                        <p>{booking.id}</p>
-                        <p>Vehicle: {booking.vehicleType} - {booking.vehicleNumber}</p>
-                        <p>Booked At: {new Date(booking.bookedAt).toLocaleString()}</p>
-                        <p>Status: {booking.isCheckOut ? "Checked Out" : "Active"} </p>
-                    </li>
-                ))}
-               </ul>
+                
+                {bookings.length<=0 
+                ? 
+
+                <div className="flex justify-center items-center h-screen">
+                      No bookings 
+                </div> 
+                
+                  :
+                    <ul>
+                    {bookings.map((booking) => (
+                        <li key={booking.id} className="border border-white shadow  p-2 my-2 rounded">
+                            <p>{booking.id}</p>
+                            <p>Vehicle: {booking.vehicleType} - {booking.vehicleNumber}</p>
+                            <p>Booked At: {new Date(booking.bookedAt).toLocaleString()}</p>
+                            <p>Status: {booking.isCheckOut ? "Checked Out" : "Active"} </p>
+                        </li>
+                    ))}
+                  </ul>
+               }
              </div>
            
         </div>

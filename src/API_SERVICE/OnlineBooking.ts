@@ -1,4 +1,5 @@
 import axiosInstance from "../AXIOS_INSTANCE/api_instance";
+import handleApiError from "./handleApiError";
 
 interface Props {
     vehicle: string | undefined;
@@ -22,8 +23,7 @@ export default async ({ vehicle, vehicleNumber, parkingId }: Props) => {
             }
         );
         return response?.data;
-    } catch (error: any) {
-        console.error("Booking failed:", error?.response?.data || error.message);
-        throw error?.response?.data || new Error("Something went wrong");
+    } catch (error: any) {       
+         return  handleApiError(error);    
     }
 };

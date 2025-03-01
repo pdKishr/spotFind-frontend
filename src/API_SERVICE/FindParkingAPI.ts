@@ -1,4 +1,5 @@
 import axiosInstance from "../AXIOS_INSTANCE/api_instance"
+import handleApiError from "./handleApiError";
 
 export default async (location : string , vehicleType :string , city : string)=>{
     try{
@@ -12,7 +13,6 @@ export default async (location : string , vehicleType :string , city : string)=>
 
     }
     catch(error : any){
-        alert("something went wrong")
-        throw new error.response.data ;
+        return handleApiError(error);
     }
 }

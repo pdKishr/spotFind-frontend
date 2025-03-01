@@ -1,4 +1,5 @@
 import axiosInstance from "../AXIOS_INSTANCE/api_instance"
+import handleApiError from "./handleApiError";
 
 interface Props{
     fname : string,
@@ -19,8 +20,7 @@ export default async({fname,email,mobileNumber,password}:Props)=>{
         return response.data;
      }
      catch(error:any){
-        alert(JSON.stringify( error.response.data.error   ));
-        throw error.response?.data || { message : "Something went wrong!"};       
+        return  handleApiError(error);      
      }
 
 };

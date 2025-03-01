@@ -2,6 +2,7 @@ import { create } from "zustand";
 import UserGetData from "../API_SERVICE/getUserData";
 import getMyParkingList from "../API_SERVICE/getMyParkingList";
 import { persist } from "zustand/middleware";
+import FindParkingAPI from "../API_SERVICE/FindParkingAPI";
 
 interface User {
    name : string,
@@ -62,6 +63,32 @@ export const useParkingStore = create<ParkingState>()(
     }),
     {
       name: "parking-storage", 
+    }
+  )
+);
+
+interface props {
+  location : string ,
+  city : string ,
+  vehicle : string
+}
+
+interface ParkingStateSearchResult{
+  parkings : Parking[],
+  fetchParking :({location , vehicle , city}:props)=> Promise<void>;
+}
+
+export const useParkingStoreSearchResult = create<ParkingStateSearchResult>()(
+  persist(
+    (set) => ({
+      parkings: [],
+      fetchParking: async ({location,vehicle,city}:props) => {
+        const data = await FindParkingAPI(location , vehicle, city);
+        set({ parkings: data });
+      },
+    }),
+    {
+      name: "parking-search-result", 
     }
   )
 );

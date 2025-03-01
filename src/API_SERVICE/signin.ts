@@ -1,4 +1,5 @@
 import axiosInstance from "../AXIOS_INSTANCE/api_instance"
+import handleApiError from "./handleApiError";
 
 interface Props{
     mobileNumber : string,
@@ -6,17 +7,17 @@ interface Props{
 }
 
 export default async ({mobileNumber,password}:Props)=>{
+
     try{
-       const response = await axiosInstance.post("/auth/user/login",{},{
-          headers :{
-            mobilenumber : mobileNumber ,
-            password : password
-          }
-       })
+       const response = await axiosInstance.post("/auth/user/login",{
+         mobileNumber ,
+         password
+       });
+
        return response.data;
     }
     catch(error:any){
-        alert(JSON.stringify(error.response.data.error));
-        throw error.response?.data || { message : "Something went wrong!"};       
-     }
+      return  handleApiError(error);
+   }
+     
 }

@@ -9,6 +9,7 @@ import GreenButton from "../COMPONENTS/GreenButton"
 import ParkingCard from "../COMPONENTS/ParkingCard"
 import Input from "../COMPONENTS/Input"
 import OnlineBooking from "../API_SERVICE/OnlineBooking"
+import LoadinIcon from "../ASSETS/LoadinIcon"
 
 export default ()=>{
 
@@ -52,27 +53,34 @@ export default ()=>{
         }, [parkingId]);
 
     const [vehicleNumber ,setVehicleNumber] = useState("");
+    const [vehicleNumberEmpty , setVehicleNumberEmpty] = useState(false);
+    const [error,setError] = useState("");
+    const [loading,setLoading] = useState(false);
 
-    const handleClick = useCallback(()=>{
+    const handleClick = useCallback( async ()=>{
+        setLoading(true);
+        setError("");
+        setVehicleNumberEmpty(false)
 
+        try{
         if(vehicleNumber === "" ){
-            alert("enter vehicle number");
+            setVehicleNumberEmpty(true)
             return;
         }
-        
-           const fetch = async()=>{
-                
-                await OnlineBooking({vehicle,vehicleNumber,parkingId});
-                alert("Booked successfully")
-                navigate("/homepage")
-           }
 
-           fetch()
+        const data =  await OnlineBooking({vehicle,vehicleNumber,parkingId});
+        if(data.error) setError(data.error);
+        else navigate("/")
+    }catch(error){
+        setError("Something went wrong. Please try again!");
+    }finally{
+        setLoading(false);
+        
+    }
+
     },[vehicleNumber])
 
    
-
-
     return<>
      <div className="fixed top-0 left-0 w-full">
         <div className="max-w-full h-18 sm:h-15 bg-green-500">
@@ -91,13 +99,19 @@ export default ()=>{
             </div>
         </div>
     </div>
-   
-       <div className="flex flex-col justify-center items-center h-screen">              
+  
+       <div className="flex flex-col justify-center items-center h-screen">   
+{loading ? <LoadinIcon/> :
+            <div>
             <ParkingCard  parking={parking}/>
-            <Input label={"Vehicle Number"} placeholder={"Format TN 73S 2922"} onChangeHandler={(e)=>{setVehicleNumber(e.target.value)}} name={"vehicleNumber"} value={vehicleNumber}/>       
+            <Input label={""} placeholder={"Vehicle Number Here"} onChangeHandler={(e)=>{setVehicleNumber(e.target.value)}} name={"vehicleNumber"} value={vehicleNumber}/>       
+            {vehicleNumberEmpty && <div className="mx-10 py-0 text-sm text-red-500 flex justify-center">{"Vehicle Number is required!"}</div>}
+            <div className="flex justify-center">  
             <GreenButton buttonName={"Book Now"} onClickHandler={handleClick}/>
+            </div>
+            </div>
+}
         </div>
-   
 
     </>
 }

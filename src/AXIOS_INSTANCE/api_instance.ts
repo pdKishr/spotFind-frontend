@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+const Railway = 'https://spotfind-backend-production.up.railway.app/api'
+//const localHost = 'http://localhost:8080/api'
+
 const axiosInstance = axios.create({
-    baseURL : 'https://spotfind-backend-production.up.railway.app/api',
+    baseURL : Railway,
     timeout :  10000,
     headers :  {
         'Content-Type' : 'application/json',
