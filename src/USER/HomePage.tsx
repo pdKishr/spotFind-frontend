@@ -264,7 +264,7 @@ export default ()=>{
                        
 
                       { bookings &&<div>
-                        <div>Reacent Searches</div>
+                        <div>Recent Searches</div>
                       
                       {bookings.map((booking)=>(
                                  <BookingCard key={booking.id} booking={booking} />
