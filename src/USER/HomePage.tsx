@@ -44,6 +44,7 @@ export default ()=>{
 
  
    const {parkings , fetchParking} = useParkingStoreSearchResult();
+   
    const [searchButtonClicked , setSearchButtonClicked] = useState(false);
 
     const handleClick = async ()=>{
@@ -65,6 +66,8 @@ export default ()=>{
                 if(vehicle==="") setIsVehicleEmpty(true);
                 return;
             }
+
+            localStorage.setItem("vehicle",vehicle)
              
             await fetchParking({location,vehicle,city});  
             setOverlay(overLay.parkings);                      
@@ -207,7 +210,7 @@ export default ()=>{
                                             navigate("/signin");
                                             return;
                                         }
-                                        
+                                       
                                         handleClick()
                                     }} />                           
                             </div>                            
@@ -227,10 +230,11 @@ export default ()=>{
                   {loading && <LoadinIcon/>}  
 
                   { parkings.length >1 ? <>   
-                  {parkings.map((parking)=>(           
+                  {parkings.map((parking)=>( 
+                       
                         <div key={parking.id} className="flex justify-center"
-                          onClick ={()=> navigate(`/getparking/${parking.id}/${vehicle}`)}
-                        ><ParkingTemplate parking={parking} vehicle ={vehicle} /> </div>                    
+                          onClick ={()=> navigate(`/getparking/${parking.id}/${localStorage.getItem("vehicle")}`)}
+                        ><ParkingTemplate parking={parking} vehicle ={localStorage.getItem("vehicle") || ""} /> </div>                    
                   ))}         
                   </>
 
@@ -269,8 +273,7 @@ export default ()=>{
                        
 
                       { bookings &&<div>
-                        <div>Recent Searches</div>
-                      
+         
                       {bookings.map((booking)=>(
                                  <BookingCard key={booking.id} booking={booking} />
                       ))}
