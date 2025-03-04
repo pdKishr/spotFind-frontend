@@ -31,9 +31,9 @@ export default ({parking , vehicle }: props)=>{
             <div className="justify-end w-fit p-1"  >                    
             
                         <div className="text-sm">
-                             Rs.{parking.isBikeParkingAvailable ? <>{parking.bikeCharge}</>:<>{parking.carCharge}</>}
+                             Rs.{vehicle=="Car" ? <>{parking.carCharge}</>:<>{parking.bikeCharge}</>}
                         </div>  
-                        <p className="text-xs text-gray-600">{ vehicle=="car"?<>{parking.availableCarSpots}</>:<>{parking.availableBikeSpots}</>} spots left</p>
+                        <p className="text-xs text-gray-600">{ vehicle=="Car" ?<>{parking.availableCarSpots}</>:<>{parking.availableBikeSpots}</>} spots left</p>
 
                                      
             </div> 
