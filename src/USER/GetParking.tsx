@@ -37,7 +37,10 @@ export default ()=>{
         openTime: "",
         closeTime: "",
         availableBikeSpots: 0,
-        availableCarSpots: 0
+        availableCarSpots: 0,
+        latitude : 0,
+        longitude : 0,
+        pincode : ""
     });
 
      useEffect(() => {
