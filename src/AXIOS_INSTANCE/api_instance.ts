@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-//const url = 'https://spotfind-backend-production.up.railway.app/api'
-const  url = 'http://localhost:8080/api'
+const url = 'https://spotfind-backend-production.up.railway.app/api'
+//const  url = 'http://localhost:8080/api'
 
 const axiosInstance = axios.create({
     baseURL : url,
@@ -30,6 +30,7 @@ axiosInstance.interceptors.response.use(
         if(error.response){
                  if(error.response.status){
                        console.log(error.response)
+                       localStorage.clear()                   
                  }
         }
         return Promise.reject(error);
