@@ -15,7 +15,7 @@ export default function ListParking() {
   const [overLay, setOverLay] = useState(false);
  
   const [parking, setParking] = useState({
-    parkingName: "", 
+    parkingName: "" ,
     email: "", 
     mobileNumber: "", 
     location: "", 
@@ -30,7 +30,10 @@ export default function ListParking() {
     carCharge: 0,
     isAvailableFor24Hours: true, 
     openTime: "12.00", 
-    closeTime: "11.59"
+    closeTime: "11.59",
+    latitude : 0,
+    longitude : 0 ,
+    pincode : ""
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,7 +111,7 @@ export default function ListParking() {
             <Input label="Address" name="address" type="text" placeholder="Enter Address" onChangeHandler={handleChange} value={undefined} />
             <Input label="City" name="city" type="text" placeholder="Enter City" onChangeHandler={handleChange} value={undefined} />
             <Input label="State" name="state" type="text" placeholder="Enter State" onChangeHandler={handleChange} value={undefined} />
-
+            <Input label="Pincode" name="pincode" type="text" placeholder="Enter pin code" onChangeHandler={handleChange} value={undefined} />
             {/* Bike Parking */}
             <div className="p-2">
               <label className="font-bold flex items-center space-x-2">

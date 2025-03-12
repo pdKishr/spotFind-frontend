@@ -1,11 +1,11 @@
 import axiosInstance from "../AXIOS_INSTANCE/api_instance"
 import handleApiError from "./handleApiError";
 
-export default async (location : string , vehicleType :string , city : string)=>{
+export default async (latitude : number | null , longitude: number | null, vehicleType :string)=>{
     try{
-            const response = await axiosInstance.get("/user/getParking/around-specified-location",{
+            const response = await axiosInstance.get("/user/getParking/around-current-location",{
                 params: {
-                    location, vehicleType , city
+                    latitude, longitude , vehicleType 
                 }
             })
 

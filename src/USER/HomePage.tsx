@@ -15,35 +15,40 @@ import GetUserBookings from "../API_SERVICE/GetUserBookings"
 import BookingCard, { Booking } from "../COMPONENTS/BookingCard"
 import ParkingIcon from "../ASSETS/ParkingIcon"
 import LoadinIcon from "../ASSETS/LoadinIcon"
+import useGeolocation from "../GEO_LOCATION_HOOK/useGeolocation"
+import WhiteButton from "../COMPONENTS/WhiteButton"
 
 enum overLay {
     home ,
     parkings ,
     bookings ,
-    support
-    
+    support ,
+    authenticationRequired
 }
 
 export default ()=>{
-
+    
    const token = localStorage.getItem("token");
+   const {latitude , longitude , accuracy} = useGeolocation();
+   console.log("lat "+latitude+"  long "+longitude+"   acc"+ accuracy)
 
    const [overlay,setOverlay] = useState<overLay>(overLay.home) ;
 
    const navigate = useNavigate();  
 
-    const [city , setCity]         = useState("");
+    const city = "Bangalore";
+   // const [city , setCity]         = useState("");
     const [vehicle , setVehicle]   = useState("");
     const [location , setLocation] = useState("");
 
-    const [isCityEmpty,setIsCityEmpty] = useState(false);
+  //  const [isCityEmpty,setIsCityEmpty] = useState(false);
     const [isVehicleEmpty,setIsVehicleEmpty] = useState(false);
     const [isLocationEmpty,setIsLocationEmpty] = useState(false);
     const [loading,setLoading] = useState(false);
     const [error,setError] = useState("");
 
- 
-   const {parkings , fetchParking} = useParkingStoreSearchResult();
+
+   const {parkings , fetchParking , fetchParking2} = useParkingStoreSearchResult();
    
    const [searchButtonClicked , setSearchButtonClicked] = useState(false);
 
@@ -52,17 +57,16 @@ export default ()=>{
         setError("");
         setSearchButtonClicked(true);
         setIsLocationEmpty(false);
-        setIsCityEmpty(false);
+      //  setIsCityEmpty(false);
         setIsVehicleEmpty(false);
 
-    
+   
         try{
-            const trimmedCity = city.trim();
-            const trimmedLocation = location.trim();
+          
 
-            if(trimmedCity==="" || trimmedLocation==="" || vehicle ===""){
-                if(trimmedCity==="") setIsCityEmpty(true);
-                if(trimmedLocation==="") setIsLocationEmpty(true);
+            if( /* city =="" ||*/ location==="" || vehicle ===""){
+             //   if(trimmedCity==="") setIsCityEmpty(true);
+                if(location==="") setIsLocationEmpty(true);
                 if(vehicle==="") setIsVehicleEmpty(true);
                 return;
             }
@@ -79,21 +83,54 @@ export default ()=>{
         }
            
          
-
     }
+
+   
+   const clickHandler_Of_FindParkingLotNearMe_Button = async ()=>{
+    setLoading(true)
+    setError("");
+    setSearchButtonClicked(true);
+    setIsVehicleEmpty(false);
+
+    try{
+           
+           
+            if(vehicle==="") {
+                setIsVehicleEmpty(true);
+                return;
+                }
+
+        localStorage.setItem("vehicle",vehicle)
+         
+        await fetchParking2({latitude,longitude,vehicle});  
+        setOverlay(overLay.parkings);                      
+    }catch(error:any){
+        setError("Something went wrong please try again later");
+    }
+    finally{
+        setLoading(false);        
+    }
+
+           
+   }
+
    
    const [bookings,setBookings] = useState<Booking[]>();
-
+   
    useEffect(()=>{
-      const fetch = async()=>{
-        const data = await GetUserBookings();
-        setBookings(data)
-        console.log(data)
-      }
-
-      fetch();
+     if(token){
+        const fetch = async()=>{
+            const data = await GetUserBookings();
+            setBookings(data)
+          }
+    
+          fetch();
+     }
+      
              
     },[])
+
+    console.log(parkings)
 
        return <>
 
@@ -109,7 +146,7 @@ export default ()=>{
                                 <div className="flex py-1">
                                     <Button buttonName={"ListYourSpot"} onClickHandler={()=>{ 
                                        if (!token || token === "null") {
-                                        navigate("/signin");
+                                        setOverlay(overLay.authenticationRequired);
                                         return;
                                     }
                                     
@@ -119,7 +156,7 @@ export default ()=>{
 
                                     <button onClick={()=>{
                                        if (!token || token === "null") {
-                                        navigate("/signin");
+                                        setOverlay(overLay.authenticationRequired)
                                         return;
                                     }
                                     
@@ -147,7 +184,7 @@ export default ()=>{
                                      
                                       <div className={overlay === overLay.parkings ? "bg-green-700 sm:rounded rounded-xl  w-fit h-8 flex justify-center sm:w-fit sm:h-auto  sm:mx-2" : " sm:mx-2"} onClick={()=>{
                                         if (!token || token === "null") {
-                                            navigate("/signin");
+                                            setOverlay(overLay.authenticationRequired)
                                             return;
                                         }
                                         
@@ -159,7 +196,7 @@ export default ()=>{
 
                                       <div className={overlay === overLay.bookings ? "bg-green-700 sm:rounded rounded-xl  w-fit h-8 flex justify-center sm:w-fit sm:h-auto   sm:mx-2" : "sm:mx-2"} onClick={()=>{
                                          if (!token || token === "null") {
-                                            navigate("/signin");
+                                            setOverlay(overLay.authenticationRequired)
                                             return;
                                         }
                                         
@@ -182,15 +219,9 @@ export default ()=>{
                 <div>
                   <div className="flex justify-center items-center h-screen">
                        <div className="w-full  text-center text-2xl lg:text-4xl lg:w-260 my-4">
-                        <div className="font-semibold p-2">Book your Parking Spot</div> 
-                              <div className="text-sm">                                       
-                                    <Input label="Search city" name="city" type="text" placeholder="Bengaluru" onChangeHandler={(e) => {setCity(e.target.value) }} value={city}/>                                                                                                                                                     
-                                    {isCityEmpty && <div className="mx-10 py-0 text-sm text-red-500 flex justify-center">{"City is required!"}</div>}
-
-                                    <Input label="Enter Location" name="location" type="text" placeholder="NearBy Location" onChangeHandler={(e) => { setLocation(e.target.value) }} value={location}/>         
-                                    {isLocationEmpty && <div className="mx-10 py-0 text-sm text-red-500 flex justify-center">{"Location is required!"}</div>}
-                                                                            
-                                    <div className=" p-1.5 flex justify-center space-x-2">
+                        <div className="font-semibold p-2">Book your Parking Spot in Bengaluru</div> 
+                              <div className="text-sm">  
+                              <div className=" p-1.5 flex justify-center space-x-2 my-2">
                                         <label className="font-bold">Select Vehicle</label>
                                         <div className="flex justify-bewteen ">
                                                 <div className="mx-2 ">
@@ -203,17 +234,46 @@ export default ()=>{
                                                 </div>                                
                                         </div>                              
                                     </div>  
+                              <div className="flex justify-center my-2"> <WhiteButton buttonName={"Find Parking Lot near me"} onClickHandler={ ()=>{
+
+                                    if(latitude == null || longitude== null){
+                                        alert("Please give permission to fetch location")
+                                    }
+                                    if (!token || token === "null") {
+                                        setOverlay(overLay.authenticationRequired)
+                                        return;
+                                    }
+
+
+                                    clickHandler_Of_FindParkingLotNearMe_Button()
+
+                                    }}/>
+                                </div>   
+                                
+                        <div className="font-semibold p-2 text-xl"> Or </div>  
+
+                                   
+                                    <Input label="Enter Location" name="location" type="text" placeholder={""} onChangeHandler={(e) => { setLocation(e.target.value) }} value={location}/>         
+                                    {isLocationEmpty && <div className="mx-10 py-0 text-sm text-red-500 flex justify-center">{"Location is required!"}</div>}
+                                                                            
+                                   
                                     {isVehicleEmpty && <div className="mx-10 py-0 text-sm text-red-500 flex justify-center">{"Vehicle Type is required!"}</div>}
                                     {error && <div className="mx-10 py-0 text-sm text-red-500 flex justify-center">{error}</div>}
                                     <GreenButton buttonName={"Search"} onClickHandler={()=>{
                                          if (!token || token === "null") {
-                                            navigate("/signin");
+                                            setOverlay(overLay.authenticationRequired)
                                             return;
                                         }
                                        
                                         handleClick()
-                                    }} />                           
-                            </div>                            
+                                    }} />   
+
+                                                      
+                            </div>  
+
+                            
+                        
+                                                   
                            </div>
                        </div>
                 </div>
@@ -281,9 +341,7 @@ export default ()=>{
                       }
                    
                </div>
-              
-              
-            
+                        
             </>}
 
             {overlay === overLay.support && <>                
@@ -306,7 +364,21 @@ export default ()=>{
             </div>
             </>}
 
+            {overlay === overLay.authenticationRequired &&
+            <>
+            <div className="absolute inset-0 bg-black/50  flex items-center justify-center text-sm">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-fit">
+            <h2 className="text-xl font-semibold">Please log in to access this feature</h2>
+            <div className="justify-between flex">
+            <GreenButton buttonName={"Close"} onClickHandler={()=> setOverlay(overLay.home)}  />
+            <GreenButton buttonName={"Signin"} onClickHandler={()=> navigate("/signin")}  />
+            </div>
+            </div>
+            </div>
+            </>
             
+            }
+     
                        
        </>
 }

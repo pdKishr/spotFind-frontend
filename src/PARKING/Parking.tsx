@@ -46,7 +46,10 @@ export default () => {
         openTime: "",
         closeTime: "",
         availableBikeSpots: 0,
-        availableCarSpots: 0
+        availableCarSpots: 0,
+        latitude : 0,
+        longitude : 0,
+        pincode : ""
     });
 
     const [timeAvailability, setTimeAvailability] = useState(false);
@@ -96,6 +99,8 @@ export default () => {
             setParking((prev) => ({ ...prev, carCharge: 0, noOfCarSpots: 0 }));
         }
     }, [parking.isCarParkingAvailable]);
+
+    console.log(parking.latitude + " "+parking.longitude)
 
     return <>
         <div className="fixed top-0 left-0 w-full">
@@ -258,6 +263,8 @@ export default () => {
                                     <ParkingTemplate title="Closing Time" label={parking?.closeTime} type={"text"} name="closeTime" onChangeHandler={handleChange} />
                                 </>
                             )}
+                            <ParkingTemplate title="Latitude" label={parking?.latitude}   type={"text"} name="latitude" onChangeHandler={handleChange} />
+                            <ParkingTemplate title="Longitude" label={parking?.longitude} type={"text"} name="longitude" onChangeHandler={handleChange} />
                         </div>
 
                     </div>
