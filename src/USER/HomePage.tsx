@@ -60,10 +60,10 @@ export default ()=>{
       //  setIsCityEmpty(false);
         setIsVehicleEmpty(false);
 
-   
+        
         try{
-          
-
+    
+            
             if( /* city =="" ||*/ location==="" || vehicle ===""){
              //   if(trimmedCity==="") setIsCityEmpty(true);
                 if(location==="") setIsLocationEmpty(true);
@@ -109,9 +109,8 @@ export default ()=>{
     }
     finally{
         setLoading(false);        
-    }
+    }         
 
-           
    }
 
    
@@ -127,13 +126,12 @@ export default ()=>{
           fetch();
      }
       
-             
+           
     },[])
 
     console.log(parkings)
-
+    
        return <>
-
 
         <div className="">
      
@@ -264,8 +262,14 @@ export default ()=>{
                                             setOverlay(overLay.authenticationRequired)
                                             return;
                                         }
-                                       
+                                       try{
                                         handleClick()
+                                       }
+                                       catch(e){
+                                         console.log("error fetching parkings ")
+                                         navigate("home")
+                                       }
+                                        
                                     }} />   
 
                                                       
@@ -294,7 +298,8 @@ export default ()=>{
                        
                         <div key={parking.id} className="flex justify-center"
                           onClick ={()=> navigate(`/getparking/${parking.id}/${localStorage.getItem("vehicle")}`)}
-                        ><ParkingTemplate parking={parking} vehicle ={localStorage.getItem("vehicle") || ""} /> </div>                    
+                        ><ParkingTemplate parking={parking} vehicle ={localStorage.getItem("vehicle") || ""} />
+                         </div>                    
                   ))}         
                   </>
 
@@ -310,8 +315,7 @@ export default ()=>{
                   </div>}
                   </div>
                   
-                  
-                       
+                                         
                   </>
                   }
               </div>    

@@ -28,9 +28,8 @@ axiosInstance.interceptors.response.use(
     (response)=> response ,
     (error)=>{
         if(error.response){
-                 if(error.response.status){
-                       console.log(error.response)
-                       localStorage.clear()                   
+                 if(error.response.status){                       
+                       console.log(error.response)                                       
                  }
         }
         return Promise.reject(error);
