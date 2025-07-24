@@ -37,7 +37,7 @@ export default ()=>{
    const navigate = useNavigate();  
 
     const city = "Bangalore";
-   // const [city , setCity]         = useState("");
+   // const [city , setCity]       = useState("");
     const [vehicle , setVehicle]   = useState("");
     const [location , setLocation] = useState("");
 
@@ -57,13 +57,13 @@ export default ()=>{
         setError("");
         setSearchButtonClicked(true);
         setIsLocationEmpty(false);
-      //  setIsCityEmpty(false);
+      //setIsCityEmpty(false);
         setIsVehicleEmpty(false);
 
         
         try{
     
-            
+
             if( /* city =="" ||*/ location==="" || vehicle ===""){
              //   if(trimmedCity==="") setIsCityEmpty(true);
                 if(location==="") setIsLocationEmpty(true);
@@ -86,23 +86,27 @@ export default ()=>{
     }
 
    
-   const clickHandler_Of_FindParkingLotNearMe_Button = async ()=>{
+    const clickHandler_Of_FindParkingLotNearMe_Button = async ()=>{
     setLoading(true)
     setError("");
     setSearchButtonClicked(true);
     setIsVehicleEmpty(false);
 
     try{
-           
-           
+                     
             if(vehicle==="") {
                 setIsVehicleEmpty(true);
                 return;
                 }
+        if(latitude === null || longitude === null){
+            alert("Please give permission to fetch location");  
+            return;
+        }
 
         localStorage.setItem("vehicle",vehicle)
          
         await fetchParking2({latitude,longitude,vehicle});  
+       
         setOverlay(overLay.parkings);                      
     }catch(error:any){
         setError("Something went wrong please try again later");
@@ -129,7 +133,7 @@ export default ()=>{
            
     },[])
 
-    console.log(parkings)
+    
     
        return <>
 
@@ -324,16 +328,16 @@ export default ()=>{
             }
 
             {overlay === overLay.bookings && <>
-              
+             
                <div className="flex flex-col justify-center sm:pt-28 pt-16 pb-14 sm:pb-0">
                       
-                    {bookings &&  bookings?.length<0 &&  <div className="flex  justify-center items-center h-screen ">
+                    {bookings &&  bookings?.length<=0 &&  <div className="flex  justify-center items-center h-screen ">
                       <div className="font-semibold">No Bookings to show, Book parking spot
                          <a className="text-white">,</a> 
                         <div className="flex justify-center"><GreenButton buttonName="click here" onClickHandler={()=>setOverlay(overLay.home)}/></div>
                         </div> 
                       </div>
-                    }   
+                    }    
                        
 
                       { bookings &&<div>
@@ -343,6 +347,8 @@ export default ()=>{
                       ))}
                       </div>
                       }
+
+                   
                    
                </div>
                         
@@ -357,11 +363,11 @@ export default ()=>{
 
                     <div className="flex flex-col space-y-3">
                         <a href="mailto:puruthdk@gmail.com" className="w-full text-center bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition">
-                            📧 Contact via Email
+                             Contact via Email
                         </a>
                         
                         <a href="sms:+91 9566335247" className="w-full text-center bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg transition">
-                            📩 Send a Message
+                             Send a Message
                         </a>
                      </div>
                 </div>
@@ -372,7 +378,7 @@ export default ()=>{
             <>
             <div className="absolute inset-0 bg-black/50  flex items-center justify-center text-sm">
             <div className="bg-white p-6 rounded-lg shadow-lg w-fit">
-            <h2 className="text-xl font-semibold">Please log in to access this feature</h2>
+            <h2 className="text-xl font-semibold">Please log in to access</h2>
             <div className="justify-between flex">
             <GreenButton buttonName={"Close"} onClickHandler={()=> setOverlay(overLay.home)}  />
             <GreenButton buttonName={"Signin"} onClickHandler={()=> navigate("/signin")}  />

@@ -1,6 +1,6 @@
 import { SetStateAction, useCallback, useEffect, useMemo, useState } from "react";
-import {  useUserStore } from "../ZUSTAND_STORE/store"
-import { useNavigate } from "react-router-dom";
+import {  useUserStore } from "../ZUSTAND_STORE/store";
+import {  useNavigate  } from "react-router-dom";
 import Title from "../COMPONENTS/Title";
 import Button from "../COMPONENTS/WhiteButton";
 import NavIcon from "../COMPONENTS/NavIcon";
@@ -39,8 +39,7 @@ const UserProfile = () => {
         if (!user) {
             fetchUser();
         }
-        if(user){
-        
+        if(user){        
             setName((prev) => (prev !== user.name ? user.name : prev));
             setEmail((prev) => (prev !== user.email ? user.email : prev));
             setMobileNumber((prev) => (prev !== user.mobileNumber ? user.mobileNumber : prev));

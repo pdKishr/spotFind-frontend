@@ -121,16 +121,16 @@ export default () => {
             </div>
             <div className="bg-green-500 h-15">
                 <div className="flex justify-evenly sm:justify-center">
-                    <button onClick={() => { setOverLay(overlayConstant.info) }} className={overLay === overlayConstant.info ? "bg-white" : ""}>
+                    <button onClick={() => { setOverLay(overlayConstant.info) }} className={overLay === overlayConstant.info ? "bg-white rounded" : ""}>
                         <NavIcon textColor={overLay === overlayConstant.info ? "green" : "white"} icon={<ParkingInfoIcon />} label={"Info"} />
                     </button>
-                    <button onClick={() => { setOverLay(overlayConstant.bookings) }} className={overLay === overlayConstant.bookings ? "bg-white" : ""}>
+                    <button onClick={() => { setOverLay(overlayConstant.bookings) }} className={overLay === overlayConstant.bookings ? "bg-white rounded" : ""}>
                         <NavIcon textColor={overLay === overlayConstant.bookings ? "green" : "white"} icon={<BookingsIcon />} label={"Bookings"} />
                     </button>
-                    <button onClick={() => { setOverLay(overlayConstant.ticket) }} className={overLay === overlayConstant.ticket ? "bg-white " : ""}>
+                    <button onClick={() => { setOverLay(overlayConstant.ticket) }} className={overLay === overlayConstant.ticket ? "bg-white rounded" : ""}>
                         <NavIcon textColor={overLay === overlayConstant.ticket ? "green" : "white"} icon={<TicketIcon />} label={"Generate Ticket"} />
                     </button>
-                    <button onClick={() => { setOverLay(overlayConstant.checkout) }} className={overLay === overlayConstant.checkout ? "bg-white " : ""}>
+                    <button onClick={() => { setOverLay(overlayConstant.checkout) }} className={overLay === overlayConstant.checkout ? "bg-white rounded " : ""}>
                         <NavIcon textColor={overLay === overlayConstant.checkout ? "green" : "white"} icon={<CheckoutIcon />} label={"Checkout"} />
                     </button>
                 </div>

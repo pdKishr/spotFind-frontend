@@ -1,5 +1,5 @@
 
-import Input        from "../COMPONENTS/SpecialInput";
+import Input from "../COMPONENTS/SpecialInput";
 
 export default ()=>{
   

@@ -82,7 +82,7 @@ export default function ListParking() {
 
     {/* Add Parking Button */}
     <div className="p-10 flex justify-center">
-      <Button buttonName="+ Add Parking Lot" onClickHandler={() => setOverLay(true)} />
+      <Button buttonName="+ Rent out New Parking Lot" onClickHandler={() => setOverLay(true)} />
     </div>
         
     <div className="flex justify-center">
@@ -161,7 +161,10 @@ export default function ListParking() {
             {/* Back & Save Buttons */}
             <div className="flex justify-between mt-4">
               <GreenButton buttonName={"Back"} onClickHandler={()=> setOverLay(false)}/>
-              <GreenButton buttonName={"Save"} onClickHandler={ async ()=>  await AddParking(parking)}/>
+              <GreenButton buttonName={"Save"} onClickHandler={ async ()=>{
+                 await AddParking(parking) ;
+                 setOverLay(false);
+              }  }/>
             </div>
           </div>
         </div>
